@@ -74,7 +74,7 @@ const Users = () => {
         let status = (current.status && current.status == 'Verified' ? 'Unverified' : 'Verified');
         let data = { _id: id, status };
 
-        fetch(process.env.REACT_APP_SERVER_URL + `/userVerify?email=${user.email}`, {
+        fetch(process.env.REACT_APP_SERVER_URL + `/updateProfile?email=${user.email}`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

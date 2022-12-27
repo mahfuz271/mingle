@@ -4194,6 +4194,6 @@ textarea::placeholder {
   font-weight: 700;
 }
 
-/*Footer section End here*/
-
-/*# sourceMappingURL=style.css.map */
+a{
+  cursor: pointer;
+}

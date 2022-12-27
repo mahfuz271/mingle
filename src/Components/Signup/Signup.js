@@ -18,7 +18,8 @@ const Signup = () => {
         photoURL: null,
         gender: null
     });
-    const [token] = useLogin(LoginInfo);
+    
+    useLogin(LoginInfo);
 
 
     const jwtANDUsers = (result, role = 'user', gender = null, photoURL=null) => {

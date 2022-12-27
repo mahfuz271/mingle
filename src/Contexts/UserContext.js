@@ -38,6 +38,11 @@ const UserContext = ({ children }) => {
         return signOut(auth);
     }
 
+    const modal_close = () => {
+        document.querySelector('.btn-close')?.click();
+        document.querySelector(".modal-backdrop")?.remove("show");
+        document.body.classList.remove("modal-open");
+    }
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
@@ -49,7 +54,7 @@ const UserContext = ({ children }) => {
 
     }, [])
 
-    const authInfo = { user, loading, setLoading, createUser, updateUser, signIn, logOut, signInWithGoogle }
+    const authInfo = { modal_close, user, loading, setLoading, createUser, updateUser, signIn, logOut, signInWithGoogle }
 
     return (
         <AuthContext.Provider value={authInfo}>
