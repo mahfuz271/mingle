@@ -2756,36 +2756,28 @@ textarea::placeholder {
 }
 
 /*======@@@@@@ Profile sectin start here  @@@@@@@@======= */
-.profile-section .member-profile .profile-item .profile-cover img {
+.profile-section .member-profile .profile-item .profile-cover {
   min-height: 150px;
+  background-image: url(../../img/bg1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 @media (min-width: 576px) {
-  .profile-section .member-profile .profile-item .profile-cover img {
-    min-height: 200px;
+  .profile-section .member-profile .profile-item .profile-cover {
+    min-height: 300px;
   }
-}
-.profile-section .member-profile .profile-item .profile-cover .custom-upload {
-  top: 20px;
-  right: 20px;
-  width: max-content;
-  height: max-content;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  padding: 5px 10px;
-  border-radius: 5px;
-  background: rgba(223, 49, 77, 0.3);
-  opacity: 0;
-  transform: translateY(-5px);
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
-.profile-section .member-profile .profile-item .profile-cover:hover .custom-upload {
-  opacity: 1;
-  transform: translateY(0);
 }
 .profile-section .member-profile .profile-item .profile-information {
   flex-direction: column;
   margin-top: -85px;
+}
+@media (max-width: 992px) {
+  .profile-section .member-profile .profile-item h4,
+  .profile-section .member-profile .profile-item p,
+  .profile-section .member-profile .profile-item .text{
+    color: #210053 !important;
+  }
 }
 @media (min-width: 992px) {
   .profile-section .member-profile .profile-item .profile-information {

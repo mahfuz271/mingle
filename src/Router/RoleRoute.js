@@ -15,7 +15,7 @@ const RoleRoute = ({ children, for_role }) => {
         return children;
     }
 
-    return <Navigate to="/dashboard" replace></Navigate>;
+    return <Navigate to="/" replace></Navigate>;
 };
 
 export default RoleRoute;

@@ -10,6 +10,7 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import Dashboard from "../Components/Pages/Dashboard";
 import Users from "../Components/Pages/Users";
 import RoleRoute from "./RoleRoute";
+import Profile from "../Components/Pages/Profile";
 
 const Router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const Router = createBrowserRouter([
             {
                 path: "/logout",
                 element: <PrivateRoute><Logout /></PrivateRoute>
+            },
+            {
+                path: "/profile",
+                element: <PrivateRoute><Profile /></PrivateRoute>
             },
             {
                 path: "/signup",

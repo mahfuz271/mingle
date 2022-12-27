@@ -21,13 +21,15 @@ const Users = () => {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 }
-            }).then(res => res.json())
+            })
                 .then(res => {
                     if (res.status === 401 || res.status === 403) {
                         return logOut();
-                    } else {
-                        setUsers(res.data);
                     }
+                    return res.json();
+                })
+                .then(res => {
+                    setUsers(res);
                 });
         }
     }
@@ -92,7 +94,7 @@ const Users = () => {
             })
     }
     return (<div className='my-5 text-center'>
-        {users.length > 0 ?
+        {users?.length > 0 ?
             <div className="overflow-x-auto w-full row">
                 <h2 className='mb-5'>You have {users.length} {userRole}</h2>
                 <table className="table w-full">

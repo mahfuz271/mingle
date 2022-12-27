@@ -16,7 +16,9 @@ const Login = () => {
         email: null,
         name: null,
         role,
-        insert: false
+        photoURL:null,
+        insert: false,
+        gender: null
     });
     const [token] = useLogin(LoginInfo);
     const from = location.state?.from?.pathname || '/';
@@ -27,7 +29,9 @@ const Login = () => {
             email: result.user.email,
             name: result.user.displayName,
             role,
-            insert
+            photoURL:result.user.photoURL,
+            insert,
+            gender:null
         }); setTimeout(() => {
             toast("Login success!");
             setLoading(false);

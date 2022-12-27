@@ -14,18 +14,23 @@ const Signup = () => {
         email: null,
         name: null,
         role: null,
-        insert: false
+        insert: false,
+        photoURL: null,
+        gender: null
     });
     const [token] = useLogin(LoginInfo);
 
 
-    const jwtANDUsers = (result, role = 'user') => {
+    const jwtANDUsers = (result, role = 'user', gender = null, photoURL=null) => {
         setLoading(true);
+        photoURL = photoURL? photoURL:result.user.photoURL;
         setLoginInfo({
             email: result.user.email,
             name: result.user.displayName,
+            photoURL: photoURL,
             role,
-            insert: true
+            insert: true,
+            gender
         }); setTimeout(() => {
             toast("Signup success!");
             setLoading(false);
@@ -46,6 +51,7 @@ const Signup = () => {
         const name = form.name.value;
         const photoURL = form.photoURL.value;
         const password = form.password.value;
+        const gender = form.gender.value;
         const account_type = 'user';
 
         setError(null);
@@ -68,8 +74,14 @@ const Signup = () => {
             return;
         }
 
-        if (photoURL.length < 6) {
+        if (photoURL.length < 0) {
             setError('Enter photo URL.');
+            setLoading(false);
+            return;
+        }
+
+        if (gender.length < 1) {
+            setError('Select gender.');
             setLoading(false);
             return;
         }
@@ -78,7 +90,7 @@ const Signup = () => {
             .then(result => {
                 updateUser(name, photoURL).then(() => {
                     form.reset();
-                    jwtANDUsers(result, account_type);
+                    jwtANDUsers(result, account_type, gender, photoURL);
                 })
                     .catch(error => { toast(error.message); setLoading(false); });
             })
@@ -96,25 +108,27 @@ const Signup = () => {
 
                         {error ? <p className='alert alert-danger'>{error}</p> : ''}
                         <div className="form-group">
-                            <label className="form-label text-primary d-flex" htmlFor="fullName">Full name</label>
                             <input className="form-control" id="fullName" type="text" name='name' placeholder="Your name" required="" />
                         </div>
                         <div className="form-group mt-4">
-                            <label className="form-label text-primary d-flex" htmlFor="exampleFormControlInput1">Email address</label>
                             <input className="form-control" id="exampleFormControlInput1" name='email' type="email" placeholder="Exampl@email.com" required="" />
                         </div>
                         <div className="form-group mt-4">
-                            <label className="form-label text-primary d-flex" htmlFor="inputPassword5">Password</label>
                             <div className="password-wrap position-relative">
                                 <input className="form-control pe-5" id="inputPassword5" name="password" type="password" placeholder="Enter password" required="" />
                             </div>
                         </div>
                         <div className="form-group mt-4">
-                            <label className="form-label text-primary d-flex" htmlFor="inputphotoURL">Photo URL</label>
                             <div className="password-wrap position-relative">
                                 <input className="form-control pe-5" id="inputphotoURL" name="photoURL" type="text" placeholder="Enter photoURL" required="" />
                             </div>
                         </div>
+                        <select className="form-select" name='gender' required>
+                            <option value="">Gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
                         <div className="form-group">
                             <button type='submit' disabled={loading} className="d-block lab-btn"><span>Get Started Now</span></button>
                         </div>

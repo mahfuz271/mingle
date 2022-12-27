@@ -3,7 +3,6 @@ import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/UserContext';
 
 const Header = () => {
-
     const { user } = useContext(AuthContext);
     let activeClassName = "active-link";
     let inActiveClass = "";
@@ -21,7 +20,8 @@ const Header = () => {
                         <div className="menu-area">
                             <ul className="menu">
                                 <li><NavLink to="/" className={(({ isActive }) => isActive ? activeClassName : inActiveClass)} end>Home</NavLink></li>
-                                {user ? <><li><NavLink to="/dashboard" className={(({ isActive }) => isActive ? activeClassName : inActiveClass)} end>Dashboard</NavLink></li>
+                                {user && <li><NavLink to="/profile" className={(({ isActive }) => isActive ? activeClassName : inActiveClass)} end>My Profile</NavLink></li>}
+                                {user && localStorage.getItem('role')=='admin' ? <><li><NavLink to="/dashboard" className={(({ isActive }) => isActive ? activeClassName : inActiveClass)} end>Dashboard</NavLink></li>
                                 </> : ''}
                             </ul>
                             {user ? <>
@@ -37,9 +37,6 @@ const Header = () => {
                                 <span></span>
                                 <span></span>
                                 <span></span>
-                            </div>
-                            <div className="ellepsis-bar d-lg-none">
-                                <i className="icofont-info-square"></i>
                             </div>
                         </div>
                     </div>
