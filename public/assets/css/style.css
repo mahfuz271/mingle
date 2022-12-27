@@ -2776,7 +2776,7 @@ textarea::placeholder {
   .profile-section .member-profile .profile-item h4,
   .profile-section .member-profile .profile-item p,
   .profile-section .member-profile .profile-item .text{
-    color: #210053 !important;
+    color: #fff !important;
   }
 }
 @media (min-width: 992px) {

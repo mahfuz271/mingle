@@ -2,10 +2,11 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../Contexts/UserContext';
 import { toast } from 'react-toastify';
 import useDocumentTitle from '../../Layout/useDocumentTitle';
-import { useSearchParams, useLocation } from 'react-router-dom';
+import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import Editprofile from '../Modals/Editprofile';
 
 const Profile = () => {
+    const navigate = useNavigate();
     let [searchParams, setSearchParams] = useSearchParams();
     let location = useLocation()
 
@@ -30,6 +31,10 @@ const Profile = () => {
                 })
                 .then(res => {
                     setProfile(res);
+                })
+                .catch(error => {
+                    toast(error.message);
+                    navigate('/error');
                 });
         }
     }
@@ -133,7 +138,7 @@ const Profile = () => {
                                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
                                     <button className="nav-link active" id="nav-ativity-tab" data-bs-toggle="tab" data-bs-target="#activity" type="button" role="tab" aria-controls="activity" aria-selected="true">Activity</button>
                                     <button className="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
-                                    <button className="nav-link" id="nav-friends-tab" data-bs-toggle="tab" data-bs-target="#friends" type="button" role="tab" aria-controls="friends" aria-selected="false">Follower <span className="item-number">16</span></button>
+                                    <button className="nav-link" id="nav-friends-tab" data-bs-toggle="tab" data-bs-target="#friends" type="button" role="tab" aria-controls="friends" aria-selected="false">Follower <span className="item-number">{profile?.total_follower && profile.total_follower.length}</span></button>
                                 </div>
                             </nav>
                             <div className="tab-content" id="nav-tabContent">
@@ -300,18 +305,21 @@ const Profile = () => {
                                             <div className="col-xl-12">
                                                 <article>
                                                     <div className="row gy-4 gx-3 justify-content-center">
-                                                        <div className=" col-lg-3 col-md-4 col-6">
-                                                            <div className="lab-item member-item style-1">
-                                                                <div className="lab-inner">
-                                                                    <div className="lab-thumb">
-                                                                        <img src="" alt="member-img" />
-                                                                    </div>
-                                                                    <div className="lab-content">
-                                                                        <h6><a href="#">Name</a> </h6>
+                                                        {profile.total_follower ? profile.total_follower.map((u) => {
+                                                            return <div key={u._id} className="col-lg-3 col-md-4 col-6">
+                                                                <div className="lab-item member-item style-1">
+                                                                    <div className="lab-inner">
+                                                                        <div className="lab-thumb">
+                                                                            <img src={u.details[0].photoURL} alt="member-img" />
+                                                                        </div>
+                                                                        <div className="lab-content">
+                                                                            <h6><a href="#">{u.details[0].name}</a> </h6>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        }) : <p className='col-md-12'>No Follower Found.</p>}
+
                                                     </div>
                                                 </article>
                                             </div>
