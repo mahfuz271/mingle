@@ -12,7 +12,7 @@ const Error = () => {
             <div>
                 Sorry, an error has occured, Requested page not found!
             </div>
-            <Link class="lab-btn text-light mt-5" to="/">Back to Home</Link>
+            <Link className="lab-btn text-light mt-5" to="/">Back to Home</Link>
         </div>
     );
 };

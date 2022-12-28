@@ -88,6 +88,26 @@ const Postarea = ({ profile }) => {
         }
     }
 
+
+    const postreact = (id, task = 'added') => {
+        fetch(process.env.REACT_APP_SERVER_URL + `/postreact?task=${task}&id=${id}`, {
+            method: 'POST',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    return logOut();
+                }
+                return res.json();
+            })
+            .then(res => {
+                reloadPosts();
+                toast(`like ${task}.`);
+            })
+    }
+
     return (
 
         <div className="row">
@@ -141,7 +161,7 @@ const Postarea = ({ profile }) => {
 
 
                                 {posts.length > 0 && posts.map((post) => {
-                                    return <div className="post-item mb-20">
+                                    return <div className="post-item mb-20" key={post._id}>
                                         <div className="post-content">
                                             <div className="post-author">
                                                 <div className="post-author-inner">
@@ -152,7 +172,7 @@ const Postarea = ({ profile }) => {
                                                         <h6><a href="#">{profile.name}</a></h6>
                                                         <ul className="post-status">
                                                             <li className="post-privacy"><i className="icofont-world"></i> Public</li>
-                                                            <li className="post-time">{post.created}
+                                                            <li className="post-time">{post?.created}
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -182,8 +202,16 @@ const Postarea = ({ profile }) => {
                                             </div>
                                             <div className="post-meta-bottom">
                                                 <ul className="react-list">
-                                                    <li className="react"><a><i className="icofont-like"></i>
-                                                        Like</a> </li>
+                                                    <li className="react">
+                                                        {post?.like_by!=false ? <a className='active-like' onClick={() => postreact(post._id, "removed")}>
+                                                            <i className="icofont-like"></i>
+                                                            Like
+                                                        </a> : <a onClick={() => postreact(post._id)}>
+                                                            <i className="icofont-like"></i>
+                                                            Like
+                                                        </a>}
+
+                                                    </li>
                                                     <li className="react"><a>
                                                         <i className="icofont-speech-comments"></i>
                                                         Comment
