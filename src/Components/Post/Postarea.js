@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../Contexts/UserContext';
 import { toast } from 'react-toastify';
 import { Link, useLocation } from 'react-router-dom';
+import Comments from '../Modals/Comments';
 const Postarea = ({ profile }) => {
     const imgHostKey = process.env.REACT_APP_imgbb_key;
 
@@ -88,6 +89,29 @@ const Postarea = ({ profile }) => {
         }
     }
 
+    const [comments, setComments] = useState([])
+
+    const loadComments = (id) => {
+        document.querySelector("#commentModal .id").value = id;
+
+        if (id) {
+            fetch(process.env.REACT_APP_SERVER_URL + `/commentsByPID?id=${id}`, {
+                method: 'POST',
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
+                .then(res => {
+                    if (res.status === 401 || res.status === 403) {
+                        return logOut();
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    setComments(data);
+                })
+        }
+    }
 
     const postreact = (id, task = 'added') => {
         fetch(process.env.REACT_APP_SERVER_URL + `/postreact?task=${task}&id=${id}`, {
@@ -160,7 +184,7 @@ const Postarea = ({ profile }) => {
                                     </div>}
 
 
-                                {posts.length > 0 && posts.map((post) => {
+                                {posts.length > 0 ? posts.map((post) => {
                                     return <div className="post-item mb-20" key={post._id}>
                                         <div className="post-content">
                                             <div className="post-author">
@@ -172,8 +196,7 @@ const Postarea = ({ profile }) => {
                                                         <h6><a href="#">{profile.name}</a></h6>
                                                         <ul className="post-status">
                                                             <li className="post-privacy"><i className="icofont-world"></i> Public</li>
-                                                            <li className="post-time">{post?.created}
-                                                            </li>
+                                                            <li className="post-time">{post?.created}</li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -196,14 +219,14 @@ const Postarea = ({ profile }) => {
                                             <div className="post-meta-top">
                                                 <p><a><i className="icofont-like"></i> <span>{post?.like_count} like this</span></a>
                                                 </p>
-                                                <p>
+                                                <p data-bs-toggle="modal" data-bs-target="#commentModal" onClick={() => loadComments(post._id)}>
                                                     <a>{post?.comment_count} Comments</a>
                                                 </p>
                                             </div>
                                             <div className="post-meta-bottom">
                                                 <ul className="react-list">
                                                     <li className="react">
-                                                        {post?.like_by!=false ? <a className='active-like' onClick={() => postreact(post._id, "removed")}>
+                                                        {post?.like_by != false ? <a className='active-like' onClick={() => postreact(post._id, "removed")}>
                                                             <i className="icofont-like"></i>
                                                             Like
                                                         </a> : <a onClick={() => postreact(post._id)}>
@@ -212,16 +235,17 @@ const Postarea = ({ profile }) => {
                                                         </a>}
 
                                                     </li>
-                                                    <li className="react"><a>
-                                                        <i className="icofont-speech-comments"></i>
-                                                        Comment
-                                                    </a></li>
+                                                    <li className="react" data-bs-toggle="modal" data-bs-target="#commentModal" onClick={() => loadComments(post._id)}>
+                                                        <a>
+                                                            <i className="icofont-speech-comments"></i>
+                                                            Comment
+                                                        </a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                })}
-                                <div className="load-btn">
+                                }) : <div className="info-card mb-20"><div className="info-card-title"><p className='col-md-12 mb-5 mt-5 text-center'>No Post Found.</p></div></div>}
+                                <div className="load-btn d-none">
                                     <a href="#" className="lab-btn">Load More Post <i className="icofont-spinner"></i></a>
                                 </div>
                             </div>
@@ -229,6 +253,7 @@ const Postarea = ({ profile }) => {
                     </div>
                 </article>
             </div>
+            <Comments comments={comments} loadComments={loadComments}></Comments>
         </div>
     );
 };

@@ -38,7 +38,7 @@ const Editprofile = ({ profile }) => {
         }
 
         updateUser(name, photoURL).then(() => {
-            let data = { _id: profile._id, photoURL, gender, name, looking_for, marital_status, age};
+            let data = { _id: profile._id, photoURL, gender, name, looking_for, marital_status, age };
 
             fetch(process.env.REACT_APP_SERVER_URL + `/updateProfile?email=${profile.email}`, {
                 method: 'POST',
@@ -67,55 +67,56 @@ const Editprofile = ({ profile }) => {
 
     }
 
-    return (<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form className="modal-dialog modal-dialog-scrollable" onSubmit={handleSubmit}>
-            <div className="modal-content">
-                <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel">Edit Profile</h5>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                    {error ? <p className='alert alert-danger'>{error}</p> : ''}
-                    <div className="form-group">
-                        <input className="form-control" id="fullName" defaultValue={profile?.name} type="text" name='name' placeholder="Your name" required="" />
+    return (
+        <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <form className="modal-dialog modal-dialog-scrollable" onSubmit={handleSubmit}>
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Edit Profile</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div className="form-group mt-4">
-                        <input readOnly className="form-control" id="exampleFormControlInput1" defaultValue={profile?.email} name='email' type="email" placeholder="Exampl@email.com" required="" />
-                    </div>
-                    <div className="form-group mt-4">
-                        <div className="password-wrap position-relative">
-                            <input className="form-control pe-5" id="inputphotoURL" defaultValue={profile?.photoURL} name="photoURL" type="text" placeholder="Enter photoURL" required="" />
+                    <div className="modal-body">
+                        {error ? <p className='alert alert-danger'>{error}</p> : ''}
+                        <div className="form-group">
+                            <input className="form-control" id="fullName" defaultValue={profile?.name} type="text" name='name' placeholder="Your name" required="" />
+                        </div>
+                        <div className="form-group mt-4">
+                            <input readOnly className="form-control" id="exampleFormControlInput1" defaultValue={profile?.email} name='email' type="email" placeholder="Exampl@email.com" required="" />
+                        </div>
+                        <div className="form-group mt-4">
+                            <div className="password-wrap position-relative">
+                                <input className="form-control pe-5" id="inputphotoURL" defaultValue={profile?.photoURL} name="photoURL" type="text" placeholder="Enter photoURL" required="" />
+                            </div>
+                        </div>
+                        <select className="form-select mt-4" name='gender' required>
+                            <option value="">Gender</option>
+                            <option selected={profile?.gender == 'Male' ? 'selected' : ''}>Male</option>
+                            <option selected={profile?.gender == 'Female' ? 'selected' : ''}>Female</option>
+                            <option selected={profile?.gender == 'Other' ? 'selected' : ''}>Other</option>
+                        </select>
+                        <select className="form-select mt-4" name='looking_for' required>
+                            <option value="">Looking for</option>
+                            <option selected={profile?.looking_for == 'Male' ? 'selected' : ''}>Male</option>
+                            <option selected={profile?.looking_for == 'Female' ? 'selected' : ''}>Female</option>
+                            <option selected={profile?.looking_for == 'Other' ? 'selected' : ''}>Other</option>
+                        </select>
+                        <select className="form-select mt-4" name='marital_status' required>
+                            <option value="">Marital status</option>
+                            <option selected={profile?.marital_status == 'Single' ? 'selected' : ''}>Single</option>
+                            <option selected={profile?.marital_status == 'In a relationship' ? 'selected' : ''}>In a relationship</option>
+                            <option selected={profile?.marital_status == 'Married' ? 'selected' : ''}>Married</option>
+                        </select>
+                        <div className="form-group mt-4">
+                            <input className="form-control" defaultValue={profile?.age} min="10" name='age' type="number" placeholder="Age" required="" />
                         </div>
                     </div>
-                    <select className="form-select mt-4" name='gender' required>
-                        <option value="">Gender</option>
-                        <option selected={profile?.gender == 'Male' ? 'selected' : ''}>Male</option>
-                        <option selected={profile?.gender == 'Female' ? 'selected' : ''}>Female</option>
-                        <option selected={profile?.gender == 'Other' ? 'selected' : ''}>Other</option>
-                    </select>
-                    <select className="form-select mt-4" name='looking_for' required>
-                        <option value="">Looking for</option>
-                        <option selected={profile?.looking_for == 'Male' ? 'selected' : ''}>Male</option>
-                        <option selected={profile?.looking_for == 'Female' ? 'selected' : ''}>Female</option>
-                        <option selected={profile?.looking_for == 'Other' ? 'selected' : ''}>Other</option>
-                    </select>
-                    <select className="form-select mt-4" name='marital_status' required>
-                        <option value="">Marital status</option>
-                        <option selected={profile?.marital_status == 'Single' ? 'selected' : ''}>Single</option>
-                        <option selected={profile?.marital_status == 'In a relationship' ? 'selected' : ''}>In a relationship</option>
-                        <option selected={profile?.marital_status == 'Married' ? 'selected' : ''}>Married</option>
-                    </select>
-                    <div className="form-group mt-4">
-                        <input className="form-control" defaultValue={profile?.age} min="10" name='age' type="number" placeholder="Age" required="" />
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" className="btn btn-primary" disabled={loading}>Save changes</button>
                     </div>
                 </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" className="btn btn-primary" disabled={loading}>Save changes</button>
-                </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
     );
 };
 

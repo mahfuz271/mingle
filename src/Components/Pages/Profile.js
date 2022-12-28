@@ -83,13 +83,6 @@ const Profile = () => {
                             <div className="profile-information">
                                 <div className="profile-pic">
                                     <img src={profile?.photoURL} alt="DP" />
-                                    {user.email == profile.email && <div className="custom-upload">
-                                        <div className="file-btn">
-                                            <span className="d-none d-lg-inline-block"> <i className="icofont-camera"></i>
-                                                Edit</span>
-                                            <span className="d-lg-none mr-0" wfd-invisible="true"><i className="icofont-plus"></i></span></div>
-                                        <input type="file" name='changeDP' accept="image/*" />
-                                    </div>}
                                 </div>
                                 <div className="profile-name">
                                     <h4>{profile.name}</h4>
@@ -194,7 +187,7 @@ const Profile = () => {
                                             <div className="col-xl-12">
                                                 <article>
                                                     <div className="row gy-4 gx-3 justify-content-center">
-                                                        {profile.total_follower ? profile.total_follower.map((u) => {
+                                                        {profile.total_follower && profile.total_follower.length>0 ? profile.total_follower.map((u) => {
                                                             return <Link to={`/profile?email=`+u.details[0].email} key={u._id} className="col-lg-3 col-md-4 col-6">
                                                                 <div className="lab-item member-item style-1">
                                                                     <div className="lab-inner">
@@ -207,7 +200,7 @@ const Profile = () => {
                                                                     </div>
                                                                 </div>
                                                             </Link>
-                                                        }) : <p className='col-md-12'>No Follower Found.</p>}
+                                                        }) : <div className="info-card mb-20"><div className="info-card-title"><p className='col-md-12 mb-5 mt-5 text-center'>No Follower Found.</p></div></div>}
 
                                                     </div>
                                                 </article>
