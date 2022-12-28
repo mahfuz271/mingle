@@ -2,8 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../Contexts/UserContext';
 import { toast } from 'react-toastify';
 import useDocumentTitle from '../../Layout/useDocumentTitle';
-import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
+import { useSearchParams, useLocation, useNavigate, Link } from 'react-router-dom';
 import Editprofile from '../Modals/Editprofile';
+import Postarea from '../Post/Postarea';
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -109,7 +110,7 @@ const Profile = () => {
                                         </a>}
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a>
                                             <div className="icon"><i className="icofont-envelope"></i></div>
                                             <div className="text">
                                                 <p>Message</p>
@@ -119,7 +120,7 @@ const Profile = () => {
                                 </ul>
                                 }{user.email == profile.email && <ul className="profile-contact">
                                     <li>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <a data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <div className="icon"><i className="icofont-user"></i></div>
                                             <div className="text">
                                                 <p>Edit Profile</p>
@@ -143,119 +144,7 @@ const Profile = () => {
                             </nav>
                             <div className="tab-content" id="nav-tabContent">
                                 <div className="tab-pane activity-page fade active show" id="activity" role="tabpanel">
-                                    <div>
-                                        <div className="row">
-                                            <div className="col-xl-12">
-                                                <article>
-                                                    <div className="activity-tab">
-                                                        <div className="tab-content activity-content" id="pills-tabContent">
-                                                            <div className="tab-pane fade mentions-section active show" id="pills-mentions" role="tabpanel" aria-labelledby="pills-mentions-tab">
-                                                                {user.email == profile.email && <div className="create-post mb-20">
-                                                                    <div className="lab-inner">
-                                                                        <div className="lab-thumb">
-                                                                            <div className="thumb-inner">
-                                                                                <div className="thumb-img">
-                                                                                    <img src={profile?.photoURL} alt="img" width={60} />
-                                                                                </div>
-                                                                                <div className="thumb-content">
-                                                                                    <h6><a href="#">
-                                                                                        {profile.name}
-                                                                                    </a>
-                                                                                    </h6>
-                                                                                    <div className="custom-select">
-                                                                                        <select>
-                                                                                            <option value="1">  Public &nbsp;</option>
-                                                                                            <option value="2" disabled>  Friends &nbsp;</option>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="lab-content">
-                                                                            <form className="post-form">
-                                                                                <input type="text" placeholder="Whats on your mind?" />
-                                                                                <div className="content-type">
-                                                                                    <ul className="content-list">
-                                                                                        <li className="text"><a>
-                                                                                            <i className="icofont-edit"></i>
-                                                                                            Text
-                                                                                        </a></li>
-                                                                                        <li className="image-video">
-                                                                                            <div className="file-btn"><i className="icofont-camera"></i>
-                                                                                                Photo</div>
-                                                                                            <input type="file" name='photo' accept="image/*" />
-                                                                                        </li>
-                                                                                        <li className="post-submit">
-                                                                                            <input type="submit" value="Post" className="lab-btn" />
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>}
-
-
-                                                                <div className="post-item mb-20">
-                                                                    <div className="post-content">
-                                                                        <div className="post-author">
-                                                                            <div className="post-author-inner">
-                                                                                <div className="author-thumb">
-                                                                                    <img src={profile?.photoURL} alt="img" width={60} />
-                                                                                </div>
-                                                                                <div className="author-details">
-                                                                                    <h6><a href="#">{profile.name}</a></h6>
-                                                                                    <ul className="post-status">
-                                                                                        <li className="post-privacy"><i className="icofont-world"></i> Public</li>
-                                                                                        <li className="post-time">6 Mintues Ago
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="post-description">
-                                                                            <p>
-                                                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum blanditiis omnis explicabo beatae consequatur assumenda, dolor deleniti, temporibus perspiciatis id qui! Mollitia, sed pariatur? Doloremque cupiditate maiores tenetur nam minima.
-                                                                            </p>
-                                                                            <div className="post-desc-img">
-                                                                                <div className="row g-3">
-                                                                                    <div className="col-md-8 mx-auto">
-                                                                                        <img src="assets/images/profile/post-image/02.jpg" alt="img" width="100%" />
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="post-meta">
-                                                                        <div className="post-meta-top">
-                                                                            <p><a href="#"><i className="icofont-like"></i> <span>306 like this</span></a>
-                                                                            </p>
-                                                                            <p>
-                                                                                <a href="#">136 Comments</a>
-                                                                            </p>
-                                                                        </div>
-                                                                        <div className="post-meta-bottom">
-                                                                            <ul className="react-list">
-                                                                                <li className="react"><a href="#"><i className="icofont-like"></i>
-                                                                                    Like</a> </li>
-                                                                                <li className="react"><a href="#">
-                                                                                    <i className="icofont-speech-comments"></i>
-                                                                                    Comment
-                                                                                </a></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="load-btn">
-                                                                    <a href="#" className="lab-btn">Load More Post <i className="icofont-spinner"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </article>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {profile && <Postarea profile={profile}></Postarea>}
                                 </div>
 
 
@@ -306,18 +195,18 @@ const Profile = () => {
                                                 <article>
                                                     <div className="row gy-4 gx-3 justify-content-center">
                                                         {profile.total_follower ? profile.total_follower.map((u) => {
-                                                            return <div key={u._id} className="col-lg-3 col-md-4 col-6">
+                                                            return <Link to={`/profile?email=`+u.details[0].email} key={u._id} className="col-lg-3 col-md-4 col-6">
                                                                 <div className="lab-item member-item style-1">
                                                                     <div className="lab-inner">
                                                                         <div className="lab-thumb">
                                                                             <img src={u.details[0].photoURL} alt="member-img" />
                                                                         </div>
                                                                         <div className="lab-content">
-                                                                            <h6><a href="#">{u.details[0].name}</a> </h6>
+                                                                            <h6>{u.details[0].name}</h6>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </Link>
                                                         }) : <p className='col-md-12'>No Follower Found.</p>}
 
                                                     </div>

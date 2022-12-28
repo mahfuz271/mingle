@@ -64,7 +64,9 @@
 .create-post .lab-inner .lab-content .post-form .content-type .content-list .attach-file input[type=file], .top-member-section .filters-button-group .filter-btn, .header-bar, .header-wrapper .menu-area .ellepsis-bar i, .cart-plus-minus, .lab-btn, .custom-upload input[type=file], .custom-upload .file-btn, .custom-upload {
   cursor: pointer;
 }
-
+.post-desc-img img{
+  max-height: 500px;
+}
 .account-form .form-group button, .account-form .form-group input, .contact-form-wrapper .contact-form form.comment-form textarea, .contact-form-wrapper .contact-form form.comment-form input[type=text],
 .contact-form-wrapper .contact-form form.comment-form [type=email], .contact-form-wrapper .contact-form form.comment-form, .blog-section .main-blog .blog-wrapper .post-item.video-post .post-item-inner .post-thumb .embed-responsive iframe, .blog-section .main-blog .blog-wrapper .post-item.video-post .post-item-inner .post-thumb .embed-responsive, .blog-section .post-item-inner .post-thumb a img, .post-item .post-content .post-description .post-desc-img img, .create-post .lab-inner .lab-content .post-form input[type=text], .media-wrapper .tab-content .tab-pane .media-content .album .album-thumb img, .profile-section .member-profile .profile-item .profile-information .profile-pic img, .profile-section .member-profile .profile-item .profile-cover img, .banner-form button, .banner-form .gender,
 .banner-form .person,
