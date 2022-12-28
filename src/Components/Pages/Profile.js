@@ -75,7 +75,7 @@ const Profile = () => {
     }, [location])
 
     return (
-        <section className="profile-section pt-5" style={{ background: '#391965' }}>
+        <section className="profile-section pt-5">
             <div className="container">
                 <div className="section-wrapper">
                     <div className="member-profile">
@@ -139,7 +139,7 @@ const Profile = () => {
                             </nav>
                             <div className="tab-content" id="nav-tabContent">
                                 <div className="tab-pane activity-page fade active show" id="activity" role="tabpanel">
-                                    {profile && <Postarea profile={profile}></Postarea>}
+                                    {profile && <Postarea limitpost={20} profile={profile} createpost={true} sortby={'created'}></Postarea>}
                                 </div>
 
 
