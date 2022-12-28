@@ -41,25 +41,27 @@ const Profile = () => {
     }
 
     const follow_unfollow = (task = 'follow') => {
-        let data = { email: user.email, follow: email };
-        fetch(process.env.REACT_APP_SERVER_URL + `/follow_unfollow?task=${task}`, {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
-            },
-            body: JSON.stringify(data)
-        })
-            .then(res => {
-                if (res.status === 401 || res.status === 403) {
-                    return logOut();
-                }
-                return res.json();
+        if (profile) {
+            let data = { email: user.email, follow: email };
+            fetch(process.env.REACT_APP_SERVER_URL + `/follow_unfollow?task=${task}`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: JSON.stringify(data)
             })
-            .then(res => {
-                reloadProfile();
-                toast(`${task} success.`);
-            })
+                .then(res => {
+                    if (res.status === 401 || res.status === 403) {
+                        return logOut();
+                    }
+                    return res.json();
+                })
+                .then(res => {
+                    reloadProfile();
+                    toast(`${task} success.`);
+                })
+        }
     }
 
     useEffect(reloadProfile, [logOut, email]);
@@ -157,6 +159,14 @@ const Profile = () => {
                                                                     <p className="info-details">{profile.name}</p>
                                                                 </li>
                                                                 <li>
+                                                                    <p className="info-name">University</p>
+                                                                    <p className="info-details">{profile?.university}</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p className="info-name">Address</p>
+                                                                    <p className="info-details">{profile?.address}</p>
+                                                                </li>
+                                                                <li>
                                                                     <p className="info-name">I'm a</p>
                                                                     <p className="info-details">{profile?.gender}</p>
                                                                 </li>
@@ -187,8 +197,8 @@ const Profile = () => {
                                             <div className="col-xl-12">
                                                 <article>
                                                     <div className="row gy-4 gx-3 justify-content-center">
-                                                        {profile.total_follower && profile.total_follower.length>0 ? profile.total_follower.map((u) => {
-                                                            return <Link to={`/profile?email=`+u.details[0].email} key={u._id} className="col-lg-3 col-md-4 col-6">
+                                                        {profile.total_follower && profile.total_follower.length > 0 ? profile.total_follower.map((u) => {
+                                                            return <Link to={`/profile?email=` + u.details[0].email} key={u._id} className="col-lg-3 col-md-4 col-6">
                                                                 <div className="lab-item member-item style-1">
                                                                     <div className="lab-inner">
                                                                         <div className="lab-thumb">

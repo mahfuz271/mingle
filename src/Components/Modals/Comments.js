@@ -58,7 +58,7 @@ const Comments = ({ comments, loadComments }) => {
                                         <div className="d-flex justify-content-between">
                                             <div className="d-flex flex-row align-items-center">
                                                 <img src={comment.photoURL} alt="avatar" width="25" height="25" />
-                                                <p className="small mb-0 ms-2">{comment.name}</p>
+                                                <p className="small mb-0 ms-2">{comment.name}<br/><small>{comment.created}</small></p>
                                             </div>
                                         </div>
                                     </div>

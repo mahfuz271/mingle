@@ -16,6 +16,8 @@ const Editprofile = ({ profile }) => {
         const looking_for = form.looking_for.value;
         const marital_status = form.marital_status.value;
         const age = form.age.value;
+        const university = form.university.value;
+        const address = form.address.value;
 
         setError(null);
 
@@ -36,9 +38,19 @@ const Editprofile = ({ profile }) => {
             setLoading(false);
             return;
         }
+        if (address.length < 1) {
+            setError('enter address.');
+            setLoading(false);
+            return;
+        }
+        if (university.length < 1) {
+            setError('enter university.');
+            setLoading(false);
+            return;
+        }
 
         updateUser(name, photoURL).then(() => {
-            let data = { _id: profile._id, photoURL, gender, name, looking_for, marital_status, age };
+            let data = { _id: profile._id, photoURL, gender, name, looking_for, marital_status, age, address, university };
 
             fetch(process.env.REACT_APP_SERVER_URL + `/updateProfile?email=${profile.email}`, {
                 method: 'POST',
@@ -108,6 +120,12 @@ const Editprofile = ({ profile }) => {
                         </select>
                         <div className="form-group mt-4">
                             <input className="form-control" defaultValue={profile?.age} min="10" name='age' type="number" placeholder="Age" required="" />
+                        </div>
+                        <div className="form-group mt-4">
+                            <input className="form-control" defaultValue={profile?.university} name='university' type="text" placeholder="University" required="" />
+                        </div>
+                        <div className="form-group mt-4">
+                            <input className="form-control" defaultValue={profile?.address} name='address' type="text" placeholder="Address" required="" />
                         </div>
                     </div>
                     <div className="modal-footer">
