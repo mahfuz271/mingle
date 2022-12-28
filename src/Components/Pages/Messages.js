@@ -38,10 +38,10 @@ const Messages = () => {
                     <article>
                         <div className="row gy-4 gx-3 justify-content-center">
                             {messages.length > 0 ? messages.filter((u) => { return u.email != user.email }).map((u) => {
-                                return <Link to={`/message?email=` + u.email} key={u._id} class="list-group-item list-group-item-action border-0">
-                                    <div class="d-flex align-items-center">
-                                        <img src={u.photoURL} class="rounded-circle mr-1" width="40" height="40" />
-                                        <div class="flex-grow-1 ml-3">
+                                return <Link to={`/message?email=` + u.email} key={u._id} className="list-group-item list-group-item-action border-0">
+                                    <div className="d-flex align-items-center">
+                                        <img src={u.photoURL} className="rounded-circle mr-1" width="40" height="40" />
+                                        <div className="flex-grow-1 ml-3">
                                             {u.name}
                                         </div>
                                     </div>
