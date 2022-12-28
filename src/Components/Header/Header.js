@@ -20,6 +20,7 @@ const Header = () => {
                         <div className="menu-area">
                             <ul className="menu">
                                 <li><NavLink to="/" className={(({ isActive }) => isActive ? activeClassName : inActiveClass)} end>Home</NavLink></li>
+                                {user && <li><NavLink to="/media" className={(({ isActive }) => isActive ? activeClassName : inActiveClass)} end>Media</NavLink></li>}
                                 {user && <li><NavLink to="/profile" className={(({ isActive }) => isActive ? activeClassName : inActiveClass)} end>My Profile</NavLink></li>}
                                 {user && localStorage.getItem('role')=='admin' ? <><li><NavLink to="/dashboard" className={(({ isActive }) => isActive ? activeClassName : inActiveClass)} end>Dashboard</NavLink></li>
                                 </> : ''}

@@ -11,6 +11,7 @@ import Dashboard from "../Components/Pages/Dashboard";
 import Users from "../Components/Pages/Users";
 import RoleRoute from "./RoleRoute";
 import Profile from "../Components/Pages/Profile";
+import Media from "../Components/Pages/Media";
 
 const Router = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ const Router = createBrowserRouter([
             {
                 path: "/profile",
                 element: <PrivateRoute><Profile /></PrivateRoute>
+            },
+            {
+                path: "/media",
+                element: <PrivateRoute><Media /></PrivateRoute>
             },
             {
                 path: "/signup",
