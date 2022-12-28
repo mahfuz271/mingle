@@ -13,6 +13,8 @@ import RoleRoute from "./RoleRoute";
 import Profile from "../Components/Pages/Profile";
 import Media from "../Components/Pages/Media";
 import Members from "../Components/Pages/Members";
+import Message from "../Components/Pages/Message";
+import Messages from "../Components/Pages/Messages";
 
 const Router = createBrowserRouter([
     {
@@ -43,6 +45,14 @@ const Router = createBrowserRouter([
             {
                 path: "/members",
                 element: <PrivateRoute><Members /></PrivateRoute>
+            },
+            {
+                path: "/message",
+                element: <PrivateRoute><Message /></PrivateRoute>
+            },
+            {
+                path: "/messages",
+                element: <PrivateRoute><Messages /></PrivateRoute>
             },
             {
                 path: "/signup",

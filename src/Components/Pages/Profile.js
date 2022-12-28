@@ -105,12 +105,12 @@ const Profile = () => {
                                         </a>}
                                     </li>
                                     <li>
-                                        <a>
+                                        <Link to={`/message?email=${profile.email}`}>
                                             <div className="icon"><i className="icofont-envelope"></i></div>
                                             <div className="text">
                                                 <p>Message</p>
                                             </div>
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                                 }{user.email == profile.email && <ul className="profile-contact">

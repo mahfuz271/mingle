@@ -21,6 +21,7 @@ const Header = () => {
                             <ul className="menu">
                                 <li><NavLink to="/" className={(({ isActive }) => isActive ? activeClassName : inActiveClass)} end>Home</NavLink></li>
                                 {user && <li><NavLink to="/profile" className={(({ isActive }) => isActive ? activeClassName : inActiveClass)} end>My Profile</NavLink></li>}
+                                {user && <li><NavLink to="/messages" className={(({ isActive }) => isActive ? activeClassName : inActiveClass)} end>Messages</NavLink></li>}
                                 {user && <li><NavLink to="/members" className={(({ isActive }) => isActive ? activeClassName : inActiveClass)} end>Members</NavLink></li>}
                                 {user && <li><NavLink to="/media" className={(({ isActive }) => isActive ? activeClassName : inActiveClass)} end>Media</NavLink></li>}
                                 {user && localStorage.getItem('role') == 'admin' ? <><li><NavLink to="/dashboard" className={(({ isActive }) => isActive ? activeClassName : inActiveClass)} end>Dashboard</NavLink></li>
